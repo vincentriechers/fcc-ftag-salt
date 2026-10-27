@@ -1,0 +1,57 @@
+# Custom FCC-ee 7-class flavour definitions for atlas-ftag-tools / UPP.
+#
+# The default ftag/flavours.yaml only knows ATLAS classes keyed on
+# HadronConeExclTruthLabelID and has no d/s/g split. These 7 classes cut on the
+# converter's `flavour_label` (see fcc_higgs_decay.py ONEHOT_LABELS for the mapping;
+# index == flavour_label == position in this list).
+#
+# flavour_label comes from the per-jet ghost hadron label plus, for light jets,
+# the parton label. A jet that resolves to neither gets -1 and matches none of
+# these classes, so it drops out here.
+#
+# Register with the atlas-ftag-tools version inside the UPP container, e.g.
+#   from ftag import Flavours; Flavours.from_yaml("flavours-fcc.yaml")
+# or via UPP's flavour_config key. Field names (colour/category) may need to
+# match the container's atlas-ftag-tools schema — verify on first run.
+- name: ujets
+  label: $u$-jets
+  cuts: ["flavour_label == 0"]
+  colour: "#a6cee3"
+  category: fcc-7class
+  _px: pu
+- name: djets
+  label: $d$-jets
+  cuts: ["flavour_label == 1"]
+  colour: "#1f78b4"
+  category: fcc-7class
+  _px: pd
+- name: sjets
+  label: $s$-jets
+  cuts: ["flavour_label == 2"]
+  colour: "#b2df8a"
+  category: fcc-7class
+  _px: ps
+- name: cjets
+  label: $c$-jets
+  cuts: ["flavour_label == 3"]
+  colour: "#33a02c"
+  category: fcc-7class
+  _px: pc
+- name: bjets
+  label: $b$-jets
+  cuts: ["flavour_label == 4"]
+  colour: "#e31a1c"
+  category: fcc-7class
+  _px: pb
+- name: gjets
+  label: gluon-jets
+  cuts: ["flavour_label == 5"]
+  colour: "#ff7f00"
+  category: fcc-7class
+  _px: pg
+- name: taujets
+  label: $\tau$-jets
+  cuts: ["flavour_label == 6"]
+  colour: "#6a3d9a"
+  category: fcc-7class
+  _px: ptau

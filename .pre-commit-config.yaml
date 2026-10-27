@@ -1,0 +1,43 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: "v0.16.2"
+    hooks:
+      # `ruff-check` rather than Salt's `ruff`: the latter is a deprecated alias
+      # at the rev pinned here.
+      - id: ruff-check
+        args: [--fix, --show-fixes, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.18.1"
+    hooks:
+      - id: mypy
+        args: [--ignore-missing-imports]
+        # pre-commit passes filenames explicitly, and mypy does not apply its
+        # own `exclude` to those, so [tool.mypy] exclude has to be repeated
+        # here. Without it this hook checks tests/ and the CI lint job does not.
+        exclude: ^tests/
+        additional_dependencies: ["types-PyYAML"]
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.32.0
+    hooks:
+      - id: yamllint
+        args: ["-d", "{extends: relaxed, rules: {line-length: disable}}"]
+
+  - repo: https://github.com/jsh9/pydoclint
+    rev: 0.7.3
+    hooks:
+      - id: pydoclint
+        args: [--style=numpy, --check-return-types=False]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      # --unsafe: the UPP configs use the !include tag, which plain safe_load
+      # cannot resolve. This still catches malformed YAML.
+      - id: check-yaml
+        args: [--unsafe]

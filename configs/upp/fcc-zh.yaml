@@ -1,0 +1,158 @@
+variables: !include /repo/configs/upp/variables-fcc-higgs_decay.yaml
+global_cuts: !include /repo/configs/upp/split-fcc-higgs_decay.yaml
+
+# FCC-ee pre_summer2026 higgs_decay samples, Higgs-decay labelled.
+# Source: /eos/experiment/fcc/ee/jet_flavour_tagging/pre_summer2026/samples_v1/chunks
+# 7 classes (one Higgs decay each): Huu Hdd Hss Hcc Hbb Hgg Htautau.
+# Converted to Salt-native H5 by `fcc-ftag-higgs_decay`; one file per decay (or a
+# merged file) under ntuple_dir, e.g. fcc_zh_<decay>.h5.
+# The decay files are listed individually rather than globbed. A glob resolves to
+# a single virtual dataset, which leaves H5Reader with one sub-reader whose
+# shuffle permutes whole contiguous batches; since each file holds exactly one
+# decay, every batch would then be effectively single-flavour, which breaks both
+# the availability estimates and countup resampling. Given a list, H5Reader builds
+# one size-weighted sub-reader per file and interleaves them, so every batch
+# carries the full flavour composition.
+zh: &zh
+  name: zh
+  equal_jets: False
+  pattern:
+    - fcc_zh_Huu.h5
+    - fcc_zh_Hdd.h5
+    - fcc_zh_Hss.h5
+    - fcc_zh_Hcc.h5
+    - fcc_zh_Hbb.h5
+    - fcc_zh_Hgg.h5
+    - fcc_zh_Htautau.h5
+
+# Single kinematic region. FCC ZH jets sit at jet_pt ~ 0-110 GeV; keep a loose
+# window and modest |eta|. Tune against the smoke-converted distributions.
+#
+# The last two cuts are truth-jet match quality, not kinematics. A reco jet
+# that shares little energy with its truth jet is also the one whose ghost
+# flavour label is least trustworthy, so they go together. Measured on the
+# 260918 production they keep 99.3% of jets, and a jet with no truth-jet match
+# at all has NaN there and fails both, which is what we want.
+central: &central
+  name: central
+  cuts:
+    - [jet_pt, ">", 5]
+    - [jet_pt, "<", 120]
+    - [jet_eta, ">", -4.0]
+    - [jet_eta, "<", 4.0]
+    - [jet_truthJetPurity, ">=", 0.8]
+    - [jet_truthJetCompleteness, ">=", 0.5]
+
+# 7 flavour components. Flavours defined in flavours-fcc.yaml (loaded via
+# global.flavour_config). Explicit per-split counts rather than -1: with -1 UPP
+# skips the availability pre-check, so an over-request only surfaces as a short
+# output at the end of the run. 10M/class train sits well under the
+# scarcest flavour (sjets, 16.1M after the central cuts, ~14.5M of it in the 90%
+# train split); val/test at 500k are well under the ~800k each split holds.
+# countup balances to the target flavour, so a thin pt-eta bin can still cap a
+# class below its request - if the pre-check complains, lower these rather than
+# raising the sampling fraction.
+components:
+  - region: {<<: *central}
+    sample: {<<: *zh}
+    flavours: [ujets]
+    num_jets: 10_000_000
+    num_jets_val: 500_000
+    num_jets_test: 500_000
+  - region: {<<: *central}
+    sample: {<<: *zh}
+    flavours: [djets]
+    num_jets: 10_000_000
+    num_jets_val: 500_000
+    num_jets_test: 500_000
+  - region: {<<: *central}
+    sample: {<<: *zh}
+    flavours: [sjets]
+    num_jets: 10_000_000
+    num_jets_val: 500_000
+    num_jets_test: 500_000
+  - region: {<<: *central}
+    sample: {<<: *zh}
+    flavours: [cjets]
+    num_jets: 10_000_000
+    num_jets_val: 500_000
+    num_jets_test: 500_000
+  - region: {<<: *central}
+    sample: {<<: *zh}
+    flavours: [bjets]
+    num_jets: 10_000_000
+    num_jets_val: 500_000
+    num_jets_test: 500_000
+  - region: {<<: *central}
+    sample: {<<: *zh}
+    flavours: [gjets]
+    num_jets: 10_000_000
+    num_jets_val: 500_000
+    num_jets_test: 500_000
+  - region: {<<: *central}
+    sample: {<<: *zh}
+    flavours: [taujets]
+    num_jets: 10_000_000
+    num_jets_val: 500_000
+    num_jets_test: 500_000
+
+resampling:
+  target: bjets
+  # countup selects distinct jets and duplicates only where a single bin falls
+  # short of the target. The pdf method importance-samples with replacement and so
+  # duplicates ~1.6x at sampling_fraction 1 however much data is available.
+  method: countup
+  sampling_fraction: 1
+  # Deliberately fine. pt and eta are tightly correlated in e+e- -> ZH (soft jets
+  # forward, hard jets central) and the correlation differs per decay, so matching
+  # pt alone pulls eta out of agreement: on this production the spread at
+  # |eta| < 0.5 grows from 1.1 points in the raw sample to 15.7 points on a coarse
+  # 17x2 grid, enough for a tagger to separate taus by centrality rather than by
+  # track content. This grid leaves 0.6 points, at the cost of upsampling 1.25 for
+  # taujets and <=1.04 for every other class.
+  #
+  # 292 of the 544 bins hold no bjets and are unusable for resampling as a result,
+  # but they hold no jets of any other flavour either, so nothing is lost.
+  variables:
+    jet_pt:
+      bins: [[5, 60, 22], [60, 120, 12]]
+    jet_eta:
+      bins: [[-4.0, 4.0, 16]]
+
+global:
+  jets_name: jets
+  # Custom 7-class FCC flavours (u/d/s/c/b/g/tau on flavour_label). UPP reads
+  # flavour_config from the `global` block (it is splatted as **config["global"]
+  # into PreprocessingConfig). The d/s/g/tau split does not exist in the default
+  # atlas-ftag-tools flavours, so this MUST be set.
+  flavour_config: /repo/configs/upp/flavours-fcc.yaml
+  merge_test_samples: True
+  batch_size: 1_000_000
+  # 5M jets, 3.6% of the sample, is enough: the file list above makes
+  # estimate_available_jets draw proportionally from all seven decays, and it then
+  # reproduces a full-sample scan to within 0.1%.
+  # ABOVE the 139,340,318 total on purpose, so the prepare stage reads every
+  # batch and the resampling target histograms are an exact full pass rather
+  # than a sample. With 5_000_000 (3.6% of the data) the bjets target PDF came
+  # out 1.25 GeV too low in <jet_pt> (45.53 vs the true 46.76), and countup
+  # matched the six non-target classes to that biased target: the per-class
+  # <jet_pt> spread was 1.30 GeV instead of 0.125 GeV. Only jet_pt/jet_eta and
+  # the cut variables are read here, so a full pass costs ~15 min per component
+  # and ~1 GB of memory. num_jets_estimate_plotting below stays small.
+  num_jets_estimate: 139_500_000
+  num_jets_estimate_plotting: 2_000_000
+  num_jets_per_output_file: 2_000_000
+  # 261013 production: the same jets as the 260918 one (139.3M, converted
+  # again from stage2/260918_stage2 with the updated converter), with the three
+  # constituent kinematics pfcand_e / pfcand_deta / pfcand_dphi that salt's
+  # pairwise edge features need. 7 files fcc_zh_<decay>.h5, ~20M jets each,
+  # gzip-7, ghost/truth-jet jet labels and the pfcand_truth* labels that
+  # variables-fcc-higgs_decay.yaml lists. Output goes to its own
+  # preprocessed_261013/ so the 260918 run stays intact.
+  # vds_dir is only used if a pattern is globbed rather than listed:
+  # atlas-ftag-tools then writes its virtual-dataset files into
+  # <ntuple_dir>/vds by default; keep them next to the rest of the output.
+  vds_dir: /data/higgs_decay/preprocessed_261013/vds
+  ntuple_dir: /data/higgs_decay/h5_261013/
+  base_dir: /data/higgs_decay/preprocessed_261013/
+  out_dir: /data/higgs_decay/preprocessed_261013/out/

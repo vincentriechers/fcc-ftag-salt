@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  # Style is interpreter-independent, so it runs once rather than once per leg.
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      # uvx runs each tool from an isolated env, so this needs no project venv.
+      # The versions match the .pre-commit-config.yaml revs, so a green
+      # pre-commit locally means a green lint job here.
+      - run: uvx ruff@0.16.2 check --output-format=github .
+      - run: uvx ruff@0.16.2 format --check .
+      # --ignore-missing-imports, as in pre-commit: h5py, uproot and awkward
+      # ship no stubs and installing them just to type-check would undo the
+      # point of keeping this job dependency-free. PyYAML does ship stubs, and
+      # --with mirrors the hook's additional_dependencies so both agree.
+      - run: uvx --with types-PyYAML mypy@1.18.1 --ignore-missing-imports src scripts
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      # An explicit venv rather than --system: the runner's system Python is
+      # externally managed (PEP 668), and this also pins each leg to the
+      # interpreter it claims to test.
+      - run: uv venv --python ${{ matrix.python-version }}
+      # [test] rather than [dev]: the suite imports only numpy/awkward/h5py/
+      # uproot, which are core dependencies, so matplotlib, xrootd, hdf5plugin
+      # and pyyaml would just be dead weight on every leg.
+      - run: uv pip install -e ".[test]"
+      - run: .venv/bin/python -c "import sys; print(sys.version)"
+      - run: .venv/bin/pytest
+
+  # uv.lock is committed and the README tells you to `uv sync`, so it has to
+  # stay in step with pyproject.toml.
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv lock --check

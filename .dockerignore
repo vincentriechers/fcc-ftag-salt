@@ -1,0 +1,31 @@
+.git/
+.github/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Physics artifacts and run output never belong in the image.
+*.root
+*.h5
+*.hdf5
+*.ckpt
+*.npy
+*.npz
+*.sif
+*.simg
+outputs/
+logs/
+plots/
+results_plots/
+scratch/
+slurm-*.out
+
+# Cloned tools / bundled binaries; the image provides these itself.
+external/

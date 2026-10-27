@@ -1,0 +1,86 @@
+name: Docker
+
+# Only on main (and release tags). The image takes ~15 min to build, which is
+# too slow to run on every pull request.
+#
+# The paths filter matters as much as the branch one: the image is built from
+# pyproject + src only, so a change to scripts/, configs/ or the README cannot
+# alter it and must not trigger a rebuild.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - docker/Dockerfile
+      - pyproject.toml
+      - uv.lock
+      - src/**
+      - .github/workflows/docker.yml
+  workflow_dispatch:
+    inputs:
+      salt_image:
+        description: >
+          Base image to build on. Leave empty for the GHCR mirror; set e.g.
+          gitlab-registry.cern.ch/aft/algorithms/salt:0-13-0 to pin upstream.
+        default: ""
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned rather than ${{ github.repository }}: the image name is part of the
+  # documented pull command (README.md, scripts/env.sh), so it stays stable even
+  # when the repository is named differently.
+  IMAGE: ghcr.io/${{ github.repository_owner }}/fcc-ftag-salt-converter
+  # The GHCR mirror of the CERN base (see mirror-base.yml): same registry as the
+  # push target, so the pull is faster and unchanged base layers can be
+  # blob-mounted rather than re-uploaded.
+  BASE: ghcr.io/${{ github.repository_owner }}/salt-base:latest
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      # The Salt base image is ~9 GB compressed; the runner's default free space
+      # is not enough to unpack it.
+      - uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          large-packages: false
+
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=sha-
+            type=semver,pattern={{version}}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile
+          build-args: |
+            SALT_IMAGE=${{ inputs.salt_image || env.BASE }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Registry cache rather than the GitHub Actions cache: this layer set
+          # is far past the 10 GB GHA cache limit.
+          cache-from: type=registry,ref=${{ env.IMAGE }}:buildcache
+          cache-to: type=registry,ref=${{ env.IMAGE }}:buildcache,mode=max

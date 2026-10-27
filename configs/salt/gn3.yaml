@@ -1,0 +1,286 @@
+name: FCC_higgs_decay_7class_gn3
+
+# GN3-style transformer tagger for FCC-ee Higgs-decay jets: seven flavour
+# classes (u/d/s/c/b/g/tau) from the full 38-variable constituent set. That set
+# includes the two hadron-identification inputs an e+e- detector provides and a
+# hadron collider does not -- pfcand_mtof (time-of-flight mass) and pfcand_dndx
+# (dE/dx) -- which is what makes strange tagging tractable here.
+#
+# Five heads: jet flavour plus four auxiliary ones (track origin, track-pair
+# vertexing, track type, b/c-jet charge). See part.yaml for a single-head
+# Particle Transformer on the same inputs.
+#
+# Expects a UPP preprocessing whose out_dir matches the paths under data: and
+# whose norm_dict covers every variable listed there -- InputNorm refuses to
+# start otherwise, which is the intended early failure.
+#
+# flavour_label order: u=0 d=1 s=2 c=3 b=4 g=5 tau=6.
+#
+
+model:
+  # clamp bounds the NORMALISED inputs, equivalent to clipping the stored
+  # values to mean +- 5*std but without rewriting the preprocessed H5 in place.
+  # It also sits in the right spot: the edge constructor runs before InputNorm,
+  # and InputNorm skips "_edge_features_*", so dR/kt/z are built from raw
+  # values.
+  norm_config:
+    clamp: 5
+
+  optimizer: AdamW
+  loss_mode: GLS
+  lrs_config:
+    initial: 2e-8
+    # eta*(b, T) = eta_base * (b/b_ref)^0.43 * (T_ref/T)^0.10. The effective
+    # batch (1000 x accum 2 = 2000) is the reference per-GPU batch, so that
+    # factor is already in the reference max of 1e-4 and only the dataset-size
+    # term remains: (2e7/7e7)^0.10 = 0.882 -> 8.8e-5. end/max keeps the
+    # reference ratio 1/50.
+    max: 8.8e-5
+    end: 8.8e-7
+    pct_start: 0.01
+    weight_decay: 1e-5
+
+  model:
+    class_path: salt.models.SaltModel
+    init_args:
+
+      # Geometry 256 / 4 layers / out 128 / 8 heads, matching salt's own
+      # GN3_dev and GN3_baseline templates. 2.95 M parameters.
+      init_nets:
+        - input_name: pfcand
+          dense_config:
+            output_size: &embed_dim 256
+            hidden_layers: [256]
+            activation: &activation SiLU
+
+      encoder:
+        class_path: salt.models.Transformer
+        init_args:
+          num_layers: 4
+          embed_dim: *embed_dim
+          out_dim: &out_dim 128
+          attn_type: flash-varlen
+          norm: RMSNorm
+          norm_type: hybrid
+          dense_kwargs:
+            activation: *activation
+            gated: True
+          attn_kwargs:
+            num_heads: 8
+          num_registers: 8
+
+      pool_net:
+        class_path: salt.models.GlobalAttentionPooling
+        init_args: { input_size: *out_dim }
+
+      tasks:
+        class_path: torch.nn.ModuleList
+        init_args:
+          modules:
+            # 1. Jet flavour classification: u/d/s/c/b/g/tau (7 classes).
+            - class_path: salt.models.ClassificationTask
+              init_args:
+                name: jets_classification
+                input_name: jets
+                label: flavour_label
+                # NOTE: use_class_dict=True breaks a --ckpt_path resume (salt
+                # requires weights pre-resolved then) -- if resuming, pass the
+                # AUTO-RESOLVED logs/<run>/config.yaml (written by salt at
+                # training start, weights already baked in) instead of this
+                # source file.
+                use_class_dict: True
+                loss: torch.nn.CrossEntropyLoss
+                dense_config: &task_dense_config
+                  # pool_net out (128) + 4 jet globals (pt/eta/e/mass) = 132
+                  input_size: &pooled_dim 132
+                  output_size: 7
+                  hidden_layers: [128, 64, 32]
+                  activation: *activation
+
+            # 2. Track origin. class_names are explicit because salt's registry
+            # only knows the ATLAS label name, not pfcand_truthOriginLabel, and
+            # the CE weights are manual because UPP writes weights only for the
+            # occurring classes 2..7 while salt expects 8.
+            # The weights were fitted before constituents without an MC link
+            # were labelled -1 and ignored, so OtherSecondary is rarer than the
+            # 11.3 here assumes. Refit them against your own class populations.
+            - class_path: salt.models.ClassificationTask
+              init_args:
+                name: track_origin
+                input_name: pfcand
+                label: pfcand_truthOriginLabel
+                class_names: [Pileup, Fake, Primary, FromB, FromBC, FromC, FromTau, OtherSecondary]
+                use_class_dict: False
+                loss:
+                  class_path: torch.nn.CrossEntropyLoss
+                  init_args:
+                    weight: [1.0, 1.0, 1.0, 25.1, 20.3, 20.0, 52.2, 11.3]
+                dense_config:
+                  <<: *task_dense_config
+                  input_size: *out_dim
+                  output_size: 8
+                  context_size: *pooled_dim
+                  activation: *activation
+
+            # 3. Track-pair vertexing: binary BCE on vertex-cluster equality.
+            # The *VertexIndex/*OriginLabel naming is load-bearing: salt derives
+            # the HF pair weights via label.replace("VertexIndex",
+            # "OriginLabel") (salt/models/task.py). Any other name silently
+            # turns that into a no-op.
+            - class_path: salt.models.VertexingTask
+              init_args:
+                name: track_vertexing
+                input_name: pfcand
+                label: pfcand_truthVertexIndex
+                loss:
+                  class_path: torch.nn.BCEWithLogitsLoss
+                  init_args: { reduction: none }
+                dense_config:
+                  <<: *task_dense_config
+                  input_size: 256
+                  output_size: 1
+                  context_size: *pooled_dim
+                  activation: *activation
+
+            # 4. Track type, in the ATLAS signed encoding from the FCCAnalyses
+            # JetTruthLabelHelper, with our extended label_map (Lambda=4,
+            # photon=7 -> Other).
+            - class_path: salt.models.ClassificationTask
+              init_args:
+                name: track_type
+                input_name: pfcand
+                label: pfcand_truthTypeLabel
+                label_map: {-2: 2, -3: 3, 4: 1, -4: 1, 5: 4, -5: 4, 6: 5, -6: 5, 7: 1}
+                class_names: [NoTruth, Other, Pion, Kaon, Electron, Muon]
+                loss:
+                  class_path: torch.nn.CrossEntropyLoss
+                  init_args:
+                    # floors this near-solved task's loss (measured 0.0066 after
+                    # 7 epochs): under GLS the gradient ~ 1/L would amplify it
+                    # ~100x relative to jets_classification without a floor.
+                    label_smoothing: 0.05
+                dense_config:
+                  <<: *task_dense_config
+                  input_size: *out_dim
+                  output_size: 6
+                  context_size: *pooled_dim
+                  activation: *activation
+
+            # 5. jet_pt_regression stays DISABLED. Not for want of data --
+            #    jet_truthJetPt is present (median 46.03, zero NaN) -- but
+            #    because the GLS gradient goes as 1/L_i and this target is
+            #    nearly trivial at FCC-ee (jet_truthJetPt / jet_pt = 1.000 +- 3%),
+            #    so the loss collapses towards zero and the training went NaN at
+            #    ~30k steps. Re-enable only with loss_mode wsum.
+
+            # 6. B/C-jet charge classification. label_map folds the ghost-
+            #    associated production-flavour hadron PDG to b/anti-b/c/anti-c/
+            #    other (0 = no hadron matched -> other). Unmapped PDGs would
+            #    crash CrossEntropyLoss with a device assert.
+            - class_path: salt.models.ClassificationTask
+              init_args:
+                name: jets_bccharge
+                input_name: jets
+                label: jet_HadronGhostInitialTruthLabelPdgId
+                label_map: {0: 4, 15: 4, -15: 4, 511: 1, -511: 0, 513: 1, -513: 0, 521: 1, -521: 0, 523: 1, -523: 0, 10511: 1, -10511: 0, 531: 1, -531: 0, 541: 1, -541: 0, 543: 1, -543: 0, 10551: 4, 100551: 4, 110551: 4, 20553: 4, 100553: 4, 100555: 4, 200553: 4, 120553: 4, 551: 4, 553: 4, 555: 4, 431: 2, -431: 3, 421: 2, -421: 3, 411: 2, -411: 3, 441: 4, 443: 4, 445: 4, 4122: 2, -4122: 3, 4132: 2, -4132: 3, 4114: 2, -4114: 3, 4232: 2, -4232: 3, 4332: 2, -4332: 3, 10441: 4, 10443: 4, 20443: 4, 100441: 4, 100443: 4, 30443: 4, 5122: 0, -5122: 1, 5132: 0, -5132: 1, 5232: 0, -5232: 1, 5332: 0, -5332: 1, 4412: 2, 4422: 2, -4412: 3, -4422: 3, 4414: 2, 4424: 2, -4414: 3, -4424: 3, 4432: 2, -4432: 3, 4434: 2, -4434: 3, 4444: 2, -4444: 3, -4322: 3, 4322: 2, 5142: 0, 5242: 0, -5142: 1, -5242: 1, 5412: 0, 5422: 0, -5412: 1, -5422: 1, 5414: 0, 5424: 0, -5414: 1, -5424: 1, 5342: 0, -5342: 1, 5432: 0, -5432: 1, 5434: 0, -5434: 1, 5442: 0, -5442: 1, 5444: 0, -5444: 1, 5512: 0, -5512: 1, 5522: 0, -5522: 1, 5514: 0, -5514: 1, 5532: 0, -5532: 1, 5534: 0, -5534: 1, 5542: 0, -5542: 1, 5544: 0, -5544: 1, 5554: 0, -5554: 1, 20433: 2, -20433: 3, 10431: 2, -10431: 3, 4334: 2, -4334: 3, 4324: 2, -4324: 3, 4314: 2, -4314: 3, 4312: 2, -4312: 3, 4224: 2, -4224: 3, 4222: 2, -4222: 3, 4214: 2, -4214: 3, 4212: 2, -4212: 3, 4112: 2, -4112: 3, 433: 2, -433: 3, 425: 2, -425: 3, 423: 2, -423: 3, 413: 2, -413: 3, 14122: 2, -14122: 2, 10433: 2, -10433: 3, 10423: 2, -10423: 3, 10421: 2, -10421: 3, 10413: 2, -10413: 3, 10411: 2, -10411: 3, 4124: 2, -4124: 3, 20413: 2, -20413: 3, 20423: 2, -20423: 3, 9010443: 2, 435: 2, -435: 3, 415: 2, -415: 3, -5334: 1, 5334: 0, 5324: 0, -5324: 1, 5322: 0, -5322: 1, 5314: 0, -5314: 1, 5312: 0, -5312: 1, 5224: 0, -5224: 1, 5222: 0, -5222: 1, 5214: 0, -5214: 1, 5212: 0, -5212: 1, 5114: 0, -5114: 1, 5112: 0, -5112: 1, 533: 1, -533: 0, 515: 1, -515: 0, 525: 1, -525: 0, 535: 1, -535: 0, 545: 1, -545: 0, 10513: 1, -10513: 0, 10521: 1, -10521: 0, 10523: 1, -10523: 0, 10531: 1, -10531: 0, 10533: 1, -10533: 0, 10541: 1, -10541: 0, 10543: 1, -10543: 0, 20513: 1, -20513: 0, 20523: 1, -20523: 0, 20533: 1, -20533: 0, 20543: 1, -20543: 0, 10553: 4}
+                class_names: [bquark, antibquark, cquark, anticquark, other]
+                weight: 1
+                loss:
+                  class_path: torch.nn.CrossEntropyLoss
+                dense_config:
+                  <<: *task_dense_config
+                  output_size: 5
+
+data:
+  input_map:
+    global: jets
+    jets: jets
+    pfcand: pfcand
+  selections: null
+  non_finite_to_num: True
+  variables:
+    global:
+      - jet_pt
+      - jet_eta
+      - jet_e
+      - jet_mass
+    jets:
+      - jet_pt
+      - jet_eta
+      - jet_e
+      - jet_mass
+    pfcand:
+      - pfcand_erel_log
+      - pfcand_thetarel
+      - pfcand_phirel
+      - pfcand_dptdpt
+      - pfcand_detadeta
+      - pfcand_dphidphi
+      - pfcand_dxydxy
+      - pfcand_dzdz
+      - pfcand_dxydz
+      - pfcand_dphidxy
+      - pfcand_dlambdadz
+      - pfcand_dxyc
+      - pfcand_dxyctgtheta
+      - pfcand_phic
+      - pfcand_phidz
+      - pfcand_phictgtheta
+      - pfcand_cdz
+      - pfcand_cctgtheta
+      - pfcand_mtof
+      - pfcand_dndx
+      - pfcand_charge
+      - pfcand_isMu
+      - pfcand_isEl
+      - pfcand_isChargedHad
+      - pfcand_isGamma
+      - pfcand_isNeutralHad
+      - pfcand_dxy
+      - pfcand_dz
+      - pfcand_btagSip2dVal
+      - pfcand_btagSip2dSig
+      - pfcand_btagSip3dVal
+      - pfcand_btagSip3dSig
+      - pfcand_btagJetDistVal
+      - pfcand_btagJetDistSig
+      - pfcand_type
+      - pfcand_e
+      - pfcand_deta
+      - pfcand_dphi
+
+  # UPP writes the merged splits into train/ val/ test/ subdirs of out/.
+  train_file: /data/higgs_decay/preprocessed/out/train/pp_output_train_split_*.h5
+  train_vds_path: /data/higgs_decay/preprocessed/out/train/vds/pp_output_train_vds.h5
+  val_file: /data/higgs_decay/preprocessed/out/val/pp_output_val_split_*.h5
+  val_vds_path: /data/higgs_decay/preprocessed/out/val/vds/pp_output_val_vds.h5
+  test_file: /data/higgs_decay/preprocessed/out/test/pp_output_test_split_*.h5
+  test_vds_path: /data/higgs_decay/preprocessed/out/test/vds/pp_output_test_vds.h5
+  norm_dict: /data/higgs_decay/preprocessed/out/norm_dict.yaml
+  class_dict: /data/higgs_decay/preprocessed/out/class_dict.yaml
+
+  # 1000 x accumulate_grad_batches 2 gives an effective batch of 2000, which is
+  # what the learning rate above is derived for. Measured on this dataset:
+  # 500 -> 1000 buys 1.70x throughput, 1000 -> 2000 only 8% for double the
+  # memory, and a config with edge features will not fit at 2000 on a 24 GB
+  # card.
+  batch_size: 1000
+  num_workers: 10
+  persistent_workers: True
+  prefetch_factor: 2
+
+trainer:
+  # max_epochs feeds OneCycle's total_steps as well as the stopping condition,
+  # so changing it changes the learning rate at every step -- and a job killed
+  # before the last epoch never reaches the annealed tail. Size the wall clock
+  # so the schedule finishes inside it.
+  max_epochs: 22
+  # effective batch 1000 x 2 = 2000 (= reference per-GPU batch)
+  accumulate_grad_batches: 2
+  accelerator: gpu
+  devices: 1
+  num_nodes: 1
+  precision: bf16-mixed
+  # a multi-task GLS loss can spike hard enough in the first epoch to produce
+  # NaN weights; this is the guard
+  gradient_clip_val: 1.0

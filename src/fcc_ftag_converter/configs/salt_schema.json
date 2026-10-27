@@ -1,0 +1,2181 @@
+{
+  "_source": "/srv/beegfs/scratch/groups/rodem/FCC_FTAG/structure_test_file.h5",
+  "datasets": {
+    "jets": {
+      "ndim": 1,
+      "n_slots": null,
+      "dtype_descr": [
+        [
+          "pt",
+          "<f4"
+        ],
+        [
+          "eta",
+          "<f4"
+        ],
+        [
+          "energy",
+          "<f4"
+        ],
+        [
+          "mass",
+          "<f4"
+        ],
+        [
+          "ptFromTruthJet",
+          "<f4"
+        ],
+        [
+          "ptFromTruthDressedWZJet",
+          "<f4"
+        ],
+        [
+          "deltaPtToTruthTaus",
+          "<f4"
+        ],
+        [
+          "deltaRToNearestJet",
+          "<f4"
+        ],
+        [
+          "deltaEtaToNearestJet",
+          "<f4"
+        ],
+        [
+          "deltaPhiToNearestJet",
+          "<f4"
+        ],
+        [
+          "deltaPtToNearestJet",
+          "<f4"
+        ],
+        [
+          "ptFromNearestJet",
+          "<f4"
+        ],
+        [
+          "etaFromNearestJet",
+          "<f4"
+        ],
+        [
+          "phiFromNearestJet",
+          "<f4"
+        ],
+        [
+          "ptFinalCalibFromTauJet",
+          "<f4"
+        ],
+        [
+          "GN2v01_pb",
+          "<f4"
+        ],
+        [
+          "GN2v01_pc",
+          "<f4"
+        ],
+        [
+          "GN2v01_pu",
+          "<f4"
+        ],
+        [
+          "GN2v01_ptau",
+          "<f4"
+        ],
+        [
+          "GN2v01SimpleFlip_pb",
+          "<f4"
+        ],
+        [
+          "GN2v01SimpleFlip_pc",
+          "<f4"
+        ],
+        [
+          "GN2v01SimpleFlip_pu",
+          "<f4"
+        ],
+        [
+          "GN2v01SimpleFlip_ptau",
+          "<f4"
+        ],
+        [
+          "QGTransformer_ConstScore",
+          "<f4"
+        ],
+        [
+          "FracSamplingMax",
+          "<f4"
+        ],
+        [
+          "FracSamplingMaxCaloBased",
+          "<f4"
+        ],
+        [
+          "FracSamplingMaxIndex",
+          "<f4"
+        ],
+        [
+          "FracSamplingMaxIndexCaloBased",
+          "<f4"
+        ],
+        [
+          "EMFrac",
+          "<f4"
+        ],
+        [
+          "EMFracCaloBased",
+          "<f4"
+        ],
+        [
+          "HECFrac",
+          "<f4"
+        ],
+        [
+          "HECFracCaloBased",
+          "<f4"
+        ],
+        [
+          "PSFrac",
+          "<f4"
+        ],
+        [
+          "PSFracCaloBased",
+          "<f4"
+        ],
+        [
+          "GhostTrackPt",
+          "<f4"
+        ],
+        [
+          "GhostTrackCount",
+          "<f4"
+        ],
+        [
+          "TrackSumPt",
+          "<f4"
+        ],
+        [
+          "TrackSumMass",
+          "<f4"
+        ],
+        [
+          "CentroidR",
+          "<f4"
+        ],
+        [
+          "LambdaLeadingCluster",
+          "<f4"
+        ],
+        [
+          "MeanRadialDistanceSquared",
+          "<f4"
+        ],
+        [
+          "MeanLongitudinalDistanceSquared",
+          "<f4"
+        ],
+        [
+          "pt_btagJes",
+          "<f4"
+        ],
+        [
+          "absEta_btagJes",
+          "<f4"
+        ],
+        [
+          "eta_btagJes",
+          "<f4"
+        ],
+        [
+          "NNJvt",
+          "<f4"
+        ],
+        [
+          "phi",
+          "<f4"
+        ],
+        [
+          "PartonTruthLabelPt",
+          "<f4"
+        ],
+        [
+          "PartonTruthLabelDR",
+          "<f4"
+        ],
+        [
+          "GhostBHadronsFinalPt",
+          "<f4"
+        ],
+        [
+          "HadronConeExclTruthLabelPt",
+          "<f4"
+        ],
+        [
+          "HadronConeExclTruthLabelLxy",
+          "<f4"
+        ],
+        [
+          "HadronConeExclTruthLabelDR",
+          "<f4"
+        ],
+        [
+          "HadronConeExclTruthLabelChildPt",
+          "<f4"
+        ],
+        [
+          "HadronConeExclTruthLabelChildLxy",
+          "<f4"
+        ],
+        [
+          "HadronGhostTruthLabelPt",
+          "<f4"
+        ],
+        [
+          "HadronGhostTruthLabelLxy",
+          "<f4"
+        ],
+        [
+          "HadronGhostTruthLabelDR",
+          "<f4"
+        ],
+        [
+          "HadronGhostTruthLabelChildPt",
+          "<f4"
+        ],
+        [
+          "HadronGhostTruthLabelChildLxy",
+          "<f4"
+        ],
+        [
+          "e_PreSamplerB",
+          "<f4"
+        ],
+        [
+          "e_EMB1",
+          "<f4"
+        ],
+        [
+          "e_EMB2",
+          "<f4"
+        ],
+        [
+          "e_EMB3",
+          "<f4"
+        ],
+        [
+          "e_PreSamplerE",
+          "<f4"
+        ],
+        [
+          "e_EME1",
+          "<f4"
+        ],
+        [
+          "e_EME2",
+          "<f4"
+        ],
+        [
+          "e_EME3",
+          "<f4"
+        ],
+        [
+          "e_HEC0",
+          "<f4"
+        ],
+        [
+          "e_HEC1",
+          "<f4"
+        ],
+        [
+          "e_HEC2",
+          "<f4"
+        ],
+        [
+          "e_HEC3",
+          "<f4"
+        ],
+        [
+          "e_TileBar0",
+          "<f4"
+        ],
+        [
+          "e_TileBar1",
+          "<f4"
+        ],
+        [
+          "e_TileBar2",
+          "<f4"
+        ],
+        [
+          "e_TileGap1",
+          "<f4"
+        ],
+        [
+          "e_TileGap2",
+          "<f4"
+        ],
+        [
+          "e_TileGap3",
+          "<f4"
+        ],
+        [
+          "e_TileExt0",
+          "<f4"
+        ],
+        [
+          "e_TileExt1",
+          "<f4"
+        ],
+        [
+          "e_TileExt2",
+          "<f4"
+        ],
+        [
+          "e_FCAL0",
+          "<f4"
+        ],
+        [
+          "e_FCAL1",
+          "<f4"
+        ],
+        [
+          "e_FCAL2",
+          "<f4"
+        ],
+        [
+          "e_MINIFCAL0",
+          "<f4"
+        ],
+        [
+          "e_MINIFCAL1",
+          "<f4"
+        ],
+        [
+          "e_MINIFCAL2",
+          "<f4"
+        ],
+        [
+          "e_MINIFCAL3",
+          "<f4"
+        ],
+        [
+          "e_PreSamplerB_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_EMB1_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_EMB2_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_EMB3_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_PreSamplerE_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_EME1_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_EME2_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_EME3_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_HEC0_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_HEC1_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_HEC2_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_HEC3_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileBar0_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileBar1_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileBar2_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileGap1_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileGap2_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileGap3_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileExt0_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileExt1_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_TileExt2_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_FCAL0_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_FCAL1_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_FCAL2_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_MINIFCAL0_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_MINIFCAL1_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_MINIFCAL2_CaloBased",
+          "<f4"
+        ],
+        [
+          "e_MINIFCAL3_CaloBased",
+          "<f4"
+        ],
+        [
+          "RNNJetScoreFromTauJet",
+          "<f4"
+        ],
+        [
+          "RNNJetScoreSigTransFromTauJet",
+          "<f4"
+        ],
+        [
+          "GNTauScore_v0pruneFromTauJet",
+          "<f4"
+        ],
+        [
+          "GNTauScoreSigTrans_v0pruneFromTauJet",
+          "<f4"
+        ],
+        [
+          "GNTauScoreSigTrans_v1truncFromTauJet",
+          "<f4"
+        ],
+        [
+          "GN3V00_pb",
+          "<f4"
+        ],
+        [
+          "GN3V00_pc",
+          "<f4"
+        ],
+        [
+          "GN3V00_pu",
+          "<f4"
+        ],
+        [
+          "GN3V00_ptau",
+          "<f4"
+        ],
+        [
+          "GN3V00_ptFromTruthDressedWZJet",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_pb",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_pc",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_pu",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_ps",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_pud",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_pg",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_pquark",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_ptau",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00_ptFromTruthDressedWZJet",
+          "<f4"
+        ],
+        [
+          "GN3V00SimpleFlip_pb",
+          "<f4"
+        ],
+        [
+          "GN3V00SimpleFlip_pc",
+          "<f4"
+        ],
+        [
+          "GN3V00SimpleFlip_pu",
+          "<f4"
+        ],
+        [
+          "GN3V00SimpleFlip_ptau",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00SimpleFlip_pb",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00SimpleFlip_pc",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00SimpleFlip_pu",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00SimpleFlip_ps",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00SimpleFlip_pud",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00SimpleFlip_pg",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00SimpleFlip_pquark",
+          "<f4"
+        ],
+        [
+          "GN3PflowMuonsV00SimpleFlip_ptau",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pb",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pc",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pu",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_ps",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pud",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pg",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_ptau",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_ptFromTruthDressedWZJet",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pbquark",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pantibquark",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pcquark",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_panticquark",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01_pother",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01SimpleFlip_pb",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01SimpleFlip_pc",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01SimpleFlip_pu",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01SimpleFlip_ps",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01SimpleFlip_pud",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01SimpleFlip_pg",
+          "<f4"
+        ],
+        [
+          "GN3EPCLV01SimpleFlip_ptau",
+          "<f4"
+        ],
+        [
+          "pt_visFromTruthTaus",
+          "<f4"
+        ],
+        [
+          "matchedToTruthJet",
+          "<i4"
+        ],
+        [
+          "matchedToTruthDressedWZJet",
+          "<i4"
+        ],
+        [
+          "isJvtPU",
+          "<i4"
+        ],
+        [
+          "isJvtHS",
+          "<i4"
+        ],
+        [
+          "matchedToTruthTaus",
+          "<i4"
+        ],
+        [
+          "matchedToTauJet",
+          "<i4"
+        ],
+        [
+          "jetFoldHash",
+          "<u4"
+        ],
+        [
+          "jetFoldHash_noHits",
+          "<u4"
+        ],
+        [
+          "classifierParticleOutComeFromTruthTaus",
+          "<u4"
+        ],
+        [
+          "n_tracks_ghost",
+          "<i4"
+        ],
+        [
+          "n_tracks_ghost_rich_ip",
+          "<i4"
+        ],
+        [
+          "HadronGhostTruthLabelIDFromNearestJet",
+          "<i4"
+        ],
+        [
+          "n_b_tracks_ghost",
+          "<i4"
+        ],
+        [
+          "n_bc_tracks_ghost",
+          "<i4"
+        ],
+        [
+          "n_c_tracks_ghost",
+          "<i4"
+        ],
+        [
+          "n_hf_tracks_ghost",
+          "<i4"
+        ],
+        [
+          "isHadronicTauFromTruthTaus",
+          "<i4"
+        ],
+        [
+          "n_truth_promptLepton",
+          "<i4"
+        ],
+        [
+          "LeptonDecayLabel",
+          "<i4"
+        ],
+        [
+          "HadronGhostInitialTruthLabelID",
+          "<i4"
+        ],
+        [
+          "HadronGhostInitialTruthLabelPdgId",
+          "<i4"
+        ],
+        [
+          "HadronGhostInitialExtendedTruthLabelID",
+          "<i4"
+        ],
+        [
+          "PartonExtendedTruthLabelID",
+          "<i4"
+        ],
+        [
+          "TauDecayLabel",
+          "<i4"
+        ],
+        [
+          "decayModeFromTruthTaus",
+          "<i4"
+        ],
+        [
+          "HFGluonSplitLabel",
+          "<i4"
+        ],
+        [
+          "jetPtRank",
+          "<i4"
+        ],
+        [
+          "HadronConeExclTruthLabelID",
+          "<i4"
+        ],
+        [
+          "HadronConeExclExtendedTruthLabelID",
+          "<i4"
+        ],
+        [
+          "HadronConeExclTruthLabelPdgId",
+          "<i4"
+        ],
+        [
+          "HadronConeExclTruthLabelChildPdgId",
+          "<i4"
+        ],
+        [
+          "HadronGhostTruthLabelID",
+          "<i4"
+        ],
+        [
+          "HadronGhostExtendedTruthLabelID",
+          "<i4"
+        ],
+        [
+          "HadronGhostTruthLabelPdgId",
+          "<i4"
+        ],
+        [
+          "HadronGhostTruthLabelChildPdgId",
+          "<i4"
+        ],
+        [
+          "GhostBHadronsFinalCount",
+          "<i4"
+        ],
+        [
+          "GhostCHadronsFinalCount",
+          "<i4"
+        ],
+        [
+          "PartonTruthLabelID",
+          "<i4"
+        ],
+        [
+          "n_flow_calo_cal_topo_clusters",
+          "<i4"
+        ],
+        [
+          "mcCampaignYear",
+          "<f4"
+        ],
+        [
+          "mcEventWeight",
+          "<f4"
+        ],
+        [
+          "eventNumber",
+          "<i8"
+        ],
+        [
+          "averageInteractionsPerCrossing",
+          "<f4"
+        ],
+        [
+          "actualInteractionsPerCrossing",
+          "<f4"
+        ],
+        [
+          "nPrimaryVertices",
+          "<i4"
+        ],
+        [
+          "primaryVertexDetectorZ",
+          "<f4"
+        ]
+      ],
+      "fillvalue": {
+        "pt": null,
+        "eta": null,
+        "energy": null,
+        "mass": null,
+        "ptFromTruthJet": null,
+        "ptFromTruthDressedWZJet": null,
+        "deltaPtToTruthTaus": null,
+        "deltaRToNearestJet": null,
+        "deltaEtaToNearestJet": null,
+        "deltaPhiToNearestJet": null,
+        "deltaPtToNearestJet": null,
+        "ptFromNearestJet": null,
+        "etaFromNearestJet": null,
+        "phiFromNearestJet": null,
+        "ptFinalCalibFromTauJet": null,
+        "GN2v01_pb": null,
+        "GN2v01_pc": null,
+        "GN2v01_pu": null,
+        "GN2v01_ptau": null,
+        "GN2v01SimpleFlip_pb": null,
+        "GN2v01SimpleFlip_pc": null,
+        "GN2v01SimpleFlip_pu": null,
+        "GN2v01SimpleFlip_ptau": null,
+        "QGTransformer_ConstScore": null,
+        "FracSamplingMax": null,
+        "FracSamplingMaxCaloBased": null,
+        "FracSamplingMaxIndex": null,
+        "FracSamplingMaxIndexCaloBased": null,
+        "EMFrac": null,
+        "EMFracCaloBased": null,
+        "HECFrac": null,
+        "HECFracCaloBased": null,
+        "PSFrac": null,
+        "PSFracCaloBased": null,
+        "GhostTrackPt": null,
+        "GhostTrackCount": null,
+        "TrackSumPt": null,
+        "TrackSumMass": null,
+        "CentroidR": null,
+        "LambdaLeadingCluster": null,
+        "MeanRadialDistanceSquared": null,
+        "MeanLongitudinalDistanceSquared": null,
+        "pt_btagJes": null,
+        "absEta_btagJes": null,
+        "eta_btagJes": null,
+        "NNJvt": null,
+        "phi": null,
+        "PartonTruthLabelPt": null,
+        "PartonTruthLabelDR": null,
+        "GhostBHadronsFinalPt": null,
+        "HadronConeExclTruthLabelPt": null,
+        "HadronConeExclTruthLabelLxy": null,
+        "HadronConeExclTruthLabelDR": null,
+        "HadronConeExclTruthLabelChildPt": null,
+        "HadronConeExclTruthLabelChildLxy": null,
+        "HadronGhostTruthLabelPt": null,
+        "HadronGhostTruthLabelLxy": null,
+        "HadronGhostTruthLabelDR": null,
+        "HadronGhostTruthLabelChildPt": null,
+        "HadronGhostTruthLabelChildLxy": null,
+        "e_PreSamplerB": null,
+        "e_EMB1": null,
+        "e_EMB2": null,
+        "e_EMB3": null,
+        "e_PreSamplerE": null,
+        "e_EME1": null,
+        "e_EME2": null,
+        "e_EME3": null,
+        "e_HEC0": null,
+        "e_HEC1": null,
+        "e_HEC2": null,
+        "e_HEC3": null,
+        "e_TileBar0": null,
+        "e_TileBar1": null,
+        "e_TileBar2": null,
+        "e_TileGap1": null,
+        "e_TileGap2": null,
+        "e_TileGap3": null,
+        "e_TileExt0": null,
+        "e_TileExt1": null,
+        "e_TileExt2": null,
+        "e_FCAL0": null,
+        "e_FCAL1": null,
+        "e_FCAL2": null,
+        "e_MINIFCAL0": null,
+        "e_MINIFCAL1": null,
+        "e_MINIFCAL2": null,
+        "e_MINIFCAL3": null,
+        "e_PreSamplerB_CaloBased": null,
+        "e_EMB1_CaloBased": null,
+        "e_EMB2_CaloBased": null,
+        "e_EMB3_CaloBased": null,
+        "e_PreSamplerE_CaloBased": null,
+        "e_EME1_CaloBased": null,
+        "e_EME2_CaloBased": null,
+        "e_EME3_CaloBased": null,
+        "e_HEC0_CaloBased": null,
+        "e_HEC1_CaloBased": null,
+        "e_HEC2_CaloBased": null,
+        "e_HEC3_CaloBased": null,
+        "e_TileBar0_CaloBased": null,
+        "e_TileBar1_CaloBased": null,
+        "e_TileBar2_CaloBased": null,
+        "e_TileGap1_CaloBased": null,
+        "e_TileGap2_CaloBased": null,
+        "e_TileGap3_CaloBased": null,
+        "e_TileExt0_CaloBased": null,
+        "e_TileExt1_CaloBased": null,
+        "e_TileExt2_CaloBased": null,
+        "e_FCAL0_CaloBased": null,
+        "e_FCAL1_CaloBased": null,
+        "e_FCAL2_CaloBased": null,
+        "e_MINIFCAL0_CaloBased": null,
+        "e_MINIFCAL1_CaloBased": null,
+        "e_MINIFCAL2_CaloBased": null,
+        "e_MINIFCAL3_CaloBased": null,
+        "RNNJetScoreFromTauJet": null,
+        "RNNJetScoreSigTransFromTauJet": null,
+        "GNTauScore_v0pruneFromTauJet": null,
+        "GNTauScoreSigTrans_v0pruneFromTauJet": null,
+        "GNTauScoreSigTrans_v1truncFromTauJet": null,
+        "GN3V00_pb": null,
+        "GN3V00_pc": null,
+        "GN3V00_pu": null,
+        "GN3V00_ptau": null,
+        "GN3V00_ptFromTruthDressedWZJet": null,
+        "GN3PflowMuonsV00_pb": null,
+        "GN3PflowMuonsV00_pc": null,
+        "GN3PflowMuonsV00_pu": null,
+        "GN3PflowMuonsV00_ps": null,
+        "GN3PflowMuonsV00_pud": null,
+        "GN3PflowMuonsV00_pg": null,
+        "GN3PflowMuonsV00_pquark": null,
+        "GN3PflowMuonsV00_ptau": null,
+        "GN3PflowMuonsV00_ptFromTruthDressedWZJet": null,
+        "GN3V00SimpleFlip_pb": null,
+        "GN3V00SimpleFlip_pc": null,
+        "GN3V00SimpleFlip_pu": null,
+        "GN3V00SimpleFlip_ptau": null,
+        "GN3PflowMuonsV00SimpleFlip_pb": null,
+        "GN3PflowMuonsV00SimpleFlip_pc": null,
+        "GN3PflowMuonsV00SimpleFlip_pu": null,
+        "GN3PflowMuonsV00SimpleFlip_ps": null,
+        "GN3PflowMuonsV00SimpleFlip_pud": null,
+        "GN3PflowMuonsV00SimpleFlip_pg": null,
+        "GN3PflowMuonsV00SimpleFlip_pquark": null,
+        "GN3PflowMuonsV00SimpleFlip_ptau": null,
+        "GN3EPCLV01_pb": null,
+        "GN3EPCLV01_pc": null,
+        "GN3EPCLV01_pu": null,
+        "GN3EPCLV01_ps": null,
+        "GN3EPCLV01_pud": null,
+        "GN3EPCLV01_pg": null,
+        "GN3EPCLV01_ptau": null,
+        "GN3EPCLV01_ptFromTruthDressedWZJet": null,
+        "GN3EPCLV01_pbquark": null,
+        "GN3EPCLV01_pantibquark": null,
+        "GN3EPCLV01_pcquark": null,
+        "GN3EPCLV01_panticquark": null,
+        "GN3EPCLV01_pother": null,
+        "GN3EPCLV01SimpleFlip_pb": null,
+        "GN3EPCLV01SimpleFlip_pc": null,
+        "GN3EPCLV01SimpleFlip_pu": null,
+        "GN3EPCLV01SimpleFlip_ps": null,
+        "GN3EPCLV01SimpleFlip_pud": null,
+        "GN3EPCLV01SimpleFlip_pg": null,
+        "GN3EPCLV01SimpleFlip_ptau": null,
+        "pt_visFromTruthTaus": null,
+        "matchedToTruthJet": 0,
+        "matchedToTruthDressedWZJet": 0,
+        "isJvtPU": 0,
+        "isJvtHS": 0,
+        "matchedToTruthTaus": 0,
+        "matchedToTauJet": 0,
+        "jetFoldHash": 0,
+        "jetFoldHash_noHits": 0,
+        "classifierParticleOutComeFromTruthTaus": 0,
+        "n_tracks_ghost": 0,
+        "n_tracks_ghost_rich_ip": 0,
+        "HadronGhostTruthLabelIDFromNearestJet": 0,
+        "n_b_tracks_ghost": 0,
+        "n_bc_tracks_ghost": 0,
+        "n_c_tracks_ghost": 0,
+        "n_hf_tracks_ghost": 0,
+        "isHadronicTauFromTruthTaus": 0,
+        "n_truth_promptLepton": 0,
+        "LeptonDecayLabel": 0,
+        "HadronGhostInitialTruthLabelID": 0,
+        "HadronGhostInitialTruthLabelPdgId": 0,
+        "HadronGhostInitialExtendedTruthLabelID": 0,
+        "PartonExtendedTruthLabelID": 0,
+        "TauDecayLabel": 0,
+        "decayModeFromTruthTaus": 0,
+        "HFGluonSplitLabel": 0,
+        "jetPtRank": 0,
+        "HadronConeExclTruthLabelID": 0,
+        "HadronConeExclExtendedTruthLabelID": 0,
+        "HadronConeExclTruthLabelPdgId": 0,
+        "HadronConeExclTruthLabelChildPdgId": 0,
+        "HadronGhostTruthLabelID": 0,
+        "HadronGhostExtendedTruthLabelID": 0,
+        "HadronGhostTruthLabelPdgId": 0,
+        "HadronGhostTruthLabelChildPdgId": 0,
+        "GhostBHadronsFinalCount": 0,
+        "GhostCHadronsFinalCount": 0,
+        "PartonTruthLabelID": 0,
+        "n_flow_calo_cal_topo_clusters": 0,
+        "mcCampaignYear": null,
+        "mcEventWeight": null,
+        "eventNumber": 0,
+        "averageInteractionsPerCrossing": null,
+        "actualInteractionsPerCrossing": null,
+        "nPrimaryVertices": 0,
+        "primaryVertexDetectorZ": null
+      }
+    },
+    "tracks_ghost": {
+      "ndim": 2,
+      "n_slots": 75,
+      "dtype_descr": [
+        [
+          "numberOfInnermostPixelLayerHits",
+          "|u1"
+        ],
+        [
+          "numberOfNextToInnermostPixelLayerHits",
+          "|u1"
+        ],
+        [
+          "numberOfInnermostPixelLayerSharedHits",
+          "|u1"
+        ],
+        [
+          "numberOfInnermostPixelLayerSplitHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelSharedHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelSplitHits",
+          "|u1"
+        ],
+        [
+          "numberOfSCTHits",
+          "|u1"
+        ],
+        [
+          "numberOfSCTSharedHits",
+          "|u1"
+        ],
+        [
+          "GN2v01_trackOrigin",
+          "|i1"
+        ],
+        [
+          "GN2v01_vertexIndex",
+          "|i1"
+        ],
+        [
+          "leptonID",
+          "|i1"
+        ],
+        [
+          "muon_quality",
+          "|i1"
+        ],
+        [
+          "GN3PflowMuonsV00_trackOrigin",
+          "|i1"
+        ],
+        [
+          "GN3PflowMuonsV00_vertexIndex",
+          "|i1"
+        ],
+        [
+          "GN3PflowMuonsV00_trackType",
+          "|i1"
+        ],
+        [
+          "GN3EPCLV01_trackOrigin",
+          "|i1"
+        ],
+        [
+          "GN3EPCLV01_vertexIndex",
+          "|i1"
+        ],
+        [
+          "GN3EPCLV01_trackType",
+          "|i1"
+        ],
+        [
+          "ftagTruthOriginLabel",
+          "<i4"
+        ],
+        [
+          "ftagTruthTypeLabel",
+          "<i4"
+        ],
+        [
+          "ftagTruthSourceLabel",
+          "<i4"
+        ],
+        [
+          "ftagTruthVertexIndex",
+          "<i4"
+        ],
+        [
+          "qOverP",
+          "<f4"
+        ],
+        [
+          "muon_qOverPratio",
+          "<f4"
+        ],
+        [
+          "muon_momentumBalanceSignificance",
+          "<f4"
+        ],
+        [
+          "muon_scatteringNeighbourSignificance",
+          "<f4"
+        ],
+        [
+          "pt",
+          "<f4"
+        ],
+        [
+          "deta",
+          "<f4"
+        ],
+        [
+          "qOverPUncertainty",
+          "<f4"
+        ],
+        [
+          "d0",
+          "<f2"
+        ],
+        [
+          "z0SinTheta",
+          "<f2"
+        ],
+        [
+          "dphi",
+          "<f2"
+        ],
+        [
+          "d0Uncertainty",
+          "<f2"
+        ],
+        [
+          "z0SinThetaUncertainty",
+          "<f2"
+        ],
+        [
+          "phiUncertainty",
+          "<f2"
+        ],
+        [
+          "thetaUncertainty",
+          "<f2"
+        ],
+        [
+          "lifetimeSignedD0Significance",
+          "<f2"
+        ],
+        [
+          "lifetimeSignedZ0SinThetaSignificance",
+          "<f2"
+        ],
+        [
+          "valid",
+          "|b1"
+        ]
+      ],
+      "fillvalue": {
+        "numberOfInnermostPixelLayerHits": 0,
+        "numberOfNextToInnermostPixelLayerHits": 0,
+        "numberOfInnermostPixelLayerSharedHits": 0,
+        "numberOfInnermostPixelLayerSplitHits": 0,
+        "numberOfPixelHits": 0,
+        "numberOfPixelSharedHits": 0,
+        "numberOfPixelSplitHits": 0,
+        "numberOfSCTHits": 0,
+        "numberOfSCTSharedHits": 0,
+        "GN2v01_trackOrigin": -1,
+        "GN2v01_vertexIndex": -1,
+        "leptonID": -1,
+        "muon_quality": -1,
+        "GN3PflowMuonsV00_trackOrigin": -1,
+        "GN3PflowMuonsV00_vertexIndex": -1,
+        "GN3PflowMuonsV00_trackType": -1,
+        "GN3EPCLV01_trackOrigin": -1,
+        "GN3EPCLV01_vertexIndex": -1,
+        "GN3EPCLV01_trackType": -1,
+        "ftagTruthOriginLabel": -1,
+        "ftagTruthTypeLabel": -1,
+        "ftagTruthSourceLabel": -1,
+        "ftagTruthVertexIndex": -1,
+        "qOverP": null,
+        "muon_qOverPratio": null,
+        "muon_momentumBalanceSignificance": null,
+        "muon_scatteringNeighbourSignificance": null,
+        "pt": null,
+        "deta": null,
+        "qOverPUncertainty": null,
+        "d0": null,
+        "z0SinTheta": null,
+        "dphi": null,
+        "d0Uncertainty": null,
+        "z0SinThetaUncertainty": null,
+        "phiUncertainty": null,
+        "thetaUncertainty": null,
+        "lifetimeSignedD0Significance": null,
+        "lifetimeSignedZ0SinThetaSignificance": null,
+        "valid": false
+      }
+    },
+    "tracks_ghost_rich_ip": {
+      "ndim": 2,
+      "n_slots": 75,
+      "dtype_descr": [
+        [
+          "numberOfInnermostPixelLayerHits",
+          "|u1"
+        ],
+        [
+          "numberOfNextToInnermostPixelLayerHits",
+          "|u1"
+        ],
+        [
+          "numberOfInnermostPixelLayerSharedHits",
+          "|u1"
+        ],
+        [
+          "numberOfInnermostPixelLayerSplitHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelSharedHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelSplitHits",
+          "|u1"
+        ],
+        [
+          "numberOfSCTHits",
+          "|u1"
+        ],
+        [
+          "numberOfSCTSharedHits",
+          "|u1"
+        ],
+        [
+          "GN2v01_trackOrigin",
+          "|i1"
+        ],
+        [
+          "GN2v01_vertexIndex",
+          "|i1"
+        ],
+        [
+          "leptonID",
+          "|i1"
+        ],
+        [
+          "muon_quality",
+          "|i1"
+        ],
+        [
+          "GN3PflowMuonsV00_trackOrigin",
+          "|i1"
+        ],
+        [
+          "GN3PflowMuonsV00_vertexIndex",
+          "|i1"
+        ],
+        [
+          "GN3PflowMuonsV00_trackType",
+          "|i1"
+        ],
+        [
+          "GN3EPCLV01_trackOrigin",
+          "|i1"
+        ],
+        [
+          "GN3EPCLV01_vertexIndex",
+          "|i1"
+        ],
+        [
+          "GN3EPCLV01_trackType",
+          "|i1"
+        ],
+        [
+          "ftagTruthOriginLabel",
+          "<i4"
+        ],
+        [
+          "ftagTruthTypeLabel",
+          "<i4"
+        ],
+        [
+          "ftagTruthSourceLabel",
+          "<i4"
+        ],
+        [
+          "ftagTruthVertexIndex",
+          "<i4"
+        ],
+        [
+          "qOverP",
+          "<f4"
+        ],
+        [
+          "muon_qOverPratio",
+          "<f4"
+        ],
+        [
+          "muon_momentumBalanceSignificance",
+          "<f4"
+        ],
+        [
+          "muon_scatteringNeighbourSignificance",
+          "<f4"
+        ],
+        [
+          "pt",
+          "<f4"
+        ],
+        [
+          "deta",
+          "<f4"
+        ],
+        [
+          "qOverPUncertainty",
+          "<f4"
+        ],
+        [
+          "d0",
+          "<f2"
+        ],
+        [
+          "z0SinTheta",
+          "<f2"
+        ],
+        [
+          "dphi",
+          "<f2"
+        ],
+        [
+          "d0Uncertainty",
+          "<f2"
+        ],
+        [
+          "z0SinThetaUncertainty",
+          "<f2"
+        ],
+        [
+          "phiUncertainty",
+          "<f2"
+        ],
+        [
+          "thetaUncertainty",
+          "<f2"
+        ],
+        [
+          "lifetimeSignedD0Significance",
+          "<f2"
+        ],
+        [
+          "lifetimeSignedZ0SinThetaSignificance",
+          "<f2"
+        ],
+        [
+          "valid",
+          "|b1"
+        ]
+      ],
+      "fillvalue": {
+        "numberOfInnermostPixelLayerHits": 0,
+        "numberOfNextToInnermostPixelLayerHits": 0,
+        "numberOfInnermostPixelLayerSharedHits": 0,
+        "numberOfInnermostPixelLayerSplitHits": 0,
+        "numberOfPixelHits": 0,
+        "numberOfPixelSharedHits": 0,
+        "numberOfPixelSplitHits": 0,
+        "numberOfSCTHits": 0,
+        "numberOfSCTSharedHits": 0,
+        "GN2v01_trackOrigin": -1,
+        "GN2v01_vertexIndex": -1,
+        "leptonID": -1,
+        "muon_quality": -1,
+        "GN3PflowMuonsV00_trackOrigin": -1,
+        "GN3PflowMuonsV00_vertexIndex": -1,
+        "GN3PflowMuonsV00_trackType": -1,
+        "GN3EPCLV01_trackOrigin": -1,
+        "GN3EPCLV01_vertexIndex": -1,
+        "GN3EPCLV01_trackType": -1,
+        "ftagTruthOriginLabel": -1,
+        "ftagTruthTypeLabel": -1,
+        "ftagTruthSourceLabel": -1,
+        "ftagTruthVertexIndex": -1,
+        "qOverP": null,
+        "muon_qOverPratio": null,
+        "muon_momentumBalanceSignificance": null,
+        "muon_scatteringNeighbourSignificance": null,
+        "pt": null,
+        "deta": null,
+        "qOverPUncertainty": null,
+        "d0": null,
+        "z0SinTheta": null,
+        "dphi": null,
+        "d0Uncertainty": null,
+        "z0SinThetaUncertainty": null,
+        "phiUncertainty": null,
+        "thetaUncertainty": null,
+        "lifetimeSignedD0Significance": null,
+        "lifetimeSignedZ0SinThetaSignificance": null,
+        "valid": false
+      }
+    },
+    "flows": {
+      "ndim": 2,
+      "n_slots": 100,
+      "dtype_descr": [
+        [
+          "pt",
+          "<f4"
+        ],
+        [
+          "energy",
+          "<f4"
+        ],
+        [
+          "deta",
+          "<f4"
+        ],
+        [
+          "dphi",
+          "<f4"
+        ],
+        [
+          "isCharged",
+          "|b1"
+        ],
+        [
+          "valid",
+          "|b1"
+        ]
+      ],
+      "fillvalue": {
+        "pt": null,
+        "energy": null,
+        "deta": null,
+        "dphi": null,
+        "isCharged": false,
+        "valid": false
+      }
+    },
+    "calo": {
+      "ndim": 2,
+      "n_slots": 100,
+      "dtype_descr": [
+        [
+          "usedInChargedFlow",
+          "<i4"
+        ],
+        [
+          "ENG_BAD_CELLS",
+          "<f4"
+        ],
+        [
+          "ISOLATION",
+          "<f4"
+        ],
+        [
+          "CENTER_MAG",
+          "<f4"
+        ],
+        [
+          "CELL_SIGNIFICANCE",
+          "<f4"
+        ],
+        [
+          "ENG_FRAC_MAX",
+          "<f4"
+        ],
+        [
+          "LATERAL",
+          "<f4"
+        ],
+        [
+          "SIGNIFICANCE",
+          "<f4"
+        ],
+        [
+          "LONGITUDINAL",
+          "<f4"
+        ],
+        [
+          "ENG_POS",
+          "<f4"
+        ],
+        [
+          "EM_PROBABILITY",
+          "<f4"
+        ],
+        [
+          "CENTER_LAMBDA",
+          "<f4"
+        ],
+        [
+          "SECOND_LAMBDA",
+          "<f4"
+        ],
+        [
+          "FIRST_ENG_DENS",
+          "<f4"
+        ],
+        [
+          "SECOND_R",
+          "<f4"
+        ],
+        [
+          "AVG_LAR_Q",
+          "<f4"
+        ],
+        [
+          "MASS",
+          "<f4"
+        ],
+        [
+          "rawPhi",
+          "<f4"
+        ],
+        [
+          "calPhi",
+          "<f4"
+        ],
+        [
+          "rawEta",
+          "<f4"
+        ],
+        [
+          "calEta",
+          "<f4"
+        ],
+        [
+          "rawE",
+          "<f4"
+        ],
+        [
+          "calE",
+          "<f4"
+        ],
+        [
+          "PreSamplerB",
+          "<f4"
+        ],
+        [
+          "EMB1",
+          "<f4"
+        ],
+        [
+          "EMB2",
+          "<f4"
+        ],
+        [
+          "EMB3",
+          "<f4"
+        ],
+        [
+          "PreSamplerE",
+          "<f4"
+        ],
+        [
+          "EME1",
+          "<f4"
+        ],
+        [
+          "EME2",
+          "<f4"
+        ],
+        [
+          "EME3",
+          "<f4"
+        ],
+        [
+          "HEC0",
+          "<f4"
+        ],
+        [
+          "HEC1",
+          "<f4"
+        ],
+        [
+          "HEC2",
+          "<f4"
+        ],
+        [
+          "HEC3",
+          "<f4"
+        ],
+        [
+          "TileBar0",
+          "<f4"
+        ],
+        [
+          "TileBar1",
+          "<f4"
+        ],
+        [
+          "TileBar2",
+          "<f4"
+        ],
+        [
+          "TileGap1",
+          "<f4"
+        ],
+        [
+          "TileGap2",
+          "<f4"
+        ],
+        [
+          "TileGap3",
+          "<f4"
+        ],
+        [
+          "TileExt0",
+          "<f4"
+        ],
+        [
+          "TileExt1",
+          "<f4"
+        ],
+        [
+          "TileExt2",
+          "<f4"
+        ],
+        [
+          "FCAL0",
+          "<f4"
+        ],
+        [
+          "FCAL1",
+          "<f4"
+        ],
+        [
+          "FCAL2",
+          "<f4"
+        ],
+        [
+          "valid",
+          "|b1"
+        ]
+      ],
+      "fillvalue": {
+        "usedInChargedFlow": -1,
+        "ENG_BAD_CELLS": null,
+        "ISOLATION": null,
+        "CENTER_MAG": null,
+        "CELL_SIGNIFICANCE": null,
+        "ENG_FRAC_MAX": null,
+        "LATERAL": null,
+        "SIGNIFICANCE": null,
+        "LONGITUDINAL": null,
+        "ENG_POS": null,
+        "EM_PROBABILITY": null,
+        "CENTER_LAMBDA": null,
+        "SECOND_LAMBDA": null,
+        "FIRST_ENG_DENS": null,
+        "SECOND_R": null,
+        "AVG_LAR_Q": null,
+        "MASS": null,
+        "rawPhi": null,
+        "calPhi": null,
+        "rawEta": null,
+        "calEta": null,
+        "rawE": null,
+        "calE": null,
+        "PreSamplerB": null,
+        "EMB1": null,
+        "EMB2": null,
+        "EMB3": null,
+        "PreSamplerE": null,
+        "EME1": null,
+        "EME2": null,
+        "EME3": null,
+        "HEC0": null,
+        "HEC1": null,
+        "HEC2": null,
+        "HEC3": null,
+        "TileBar0": null,
+        "TileBar1": null,
+        "TileBar2": null,
+        "TileGap1": null,
+        "TileGap2": null,
+        "TileGap3": null,
+        "TileExt0": null,
+        "TileExt1": null,
+        "TileExt2": null,
+        "FCAL0": null,
+        "FCAL1": null,
+        "FCAL2": null,
+        "valid": false
+      }
+    },
+    "electrons": {
+      "ndim": 2,
+      "n_slots": 10,
+      "dtype_descr": [
+        [
+          "ftagTruthOriginLabel",
+          "<i4"
+        ],
+        [
+          "ftagTruthVertexIndex",
+          "<i4"
+        ],
+        [
+          "ftagTruthTypeLabel",
+          "<i4"
+        ],
+        [
+          "ftagTruthSourceLabel",
+          "<i4"
+        ],
+        [
+          "pt",
+          "<f4"
+        ],
+        [
+          "eta",
+          "<f4"
+        ],
+        [
+          "phi",
+          "<f4"
+        ],
+        [
+          "ftag_et",
+          "<f4"
+        ],
+        [
+          "ftag_z0AlongBeamspot",
+          "<f4"
+        ],
+        [
+          "ftag_z0AlongBeamspotSignificance",
+          "<f4"
+        ],
+        [
+          "ftag_ptVarCone30OverPt",
+          "<f4"
+        ],
+        [
+          "ftag_deltaPOverP",
+          "<f4"
+        ],
+        [
+          "deltaEta1",
+          "<f4"
+        ],
+        [
+          "deltaPhiRescaled2",
+          "<f4"
+        ],
+        [
+          "ftag_energyOverP",
+          "<f4"
+        ],
+        [
+          "Rhad",
+          "<f4"
+        ],
+        [
+          "Rhad1",
+          "<f4"
+        ],
+        [
+          "Eratio",
+          "<f4"
+        ],
+        [
+          "weta2",
+          "<f4"
+        ],
+        [
+          "Rphi",
+          "<f4"
+        ],
+        [
+          "Reta",
+          "<f4"
+        ],
+        [
+          "wtots1",
+          "<f4"
+        ],
+        [
+          "f1",
+          "<f4"
+        ],
+        [
+          "f3",
+          "<f4"
+        ],
+        [
+          "ptfrac",
+          "<f4"
+        ],
+        [
+          "ptrel",
+          "<f4"
+        ],
+        [
+          "dr",
+          "<f4"
+        ],
+        [
+          "numberOfPixelHits",
+          "|u1"
+        ],
+        [
+          "eProbabilityHT",
+          "<f4"
+        ],
+        [
+          "qOverP",
+          "<f4"
+        ],
+        [
+          "numberOfSCTHitsInclDead",
+          "<f4"
+        ],
+        [
+          "d0RelativeToBeamspot",
+          "<f4"
+        ],
+        [
+          "d0RelativeToBeamspotSignificance",
+          "<f4"
+        ],
+        [
+          "abs_eta",
+          "<f4"
+        ],
+        [
+          "valid",
+          "|b1"
+        ]
+      ],
+      "fillvalue": {
+        "ftagTruthOriginLabel": -1,
+        "ftagTruthVertexIndex": -1,
+        "ftagTruthTypeLabel": -1,
+        "ftagTruthSourceLabel": -1,
+        "pt": null,
+        "eta": null,
+        "phi": null,
+        "ftag_et": null,
+        "ftag_z0AlongBeamspot": null,
+        "ftag_z0AlongBeamspotSignificance": null,
+        "ftag_ptVarCone30OverPt": null,
+        "ftag_deltaPOverP": null,
+        "deltaEta1": null,
+        "deltaPhiRescaled2": null,
+        "ftag_energyOverP": null,
+        "Rhad": null,
+        "Rhad1": null,
+        "Eratio": null,
+        "weta2": null,
+        "Rphi": null,
+        "Reta": null,
+        "wtots1": null,
+        "f1": null,
+        "f3": null,
+        "ptfrac": null,
+        "ptrel": null,
+        "dr": null,
+        "numberOfPixelHits": 0,
+        "eProbabilityHT": null,
+        "qOverP": null,
+        "numberOfSCTHitsInclDead": null,
+        "d0RelativeToBeamspot": null,
+        "d0RelativeToBeamspotSignificance": null,
+        "abs_eta": null,
+        "valid": false
+      }
+    },
+    "muons": {
+      "ndim": 2,
+      "n_slots": 5,
+      "dtype_descr": [
+        [
+          "quality",
+          "|u1"
+        ],
+        [
+          "pt",
+          "<f4"
+        ],
+        [
+          "eta",
+          "<f4"
+        ],
+        [
+          "phi",
+          "<f4"
+        ],
+        [
+          "momentumBalanceSignificance",
+          "<f4"
+        ],
+        [
+          "scatteringNeighbourSignificance",
+          "<f4"
+        ],
+        [
+          "segmentDeltaEta",
+          "<f4"
+        ],
+        [
+          "segmentDeltaPhi",
+          "<f4"
+        ],
+        [
+          "ParamEnergyLoss",
+          "<f4"
+        ],
+        [
+          "ParamEnergyLossSigmaPlus",
+          "<f4"
+        ],
+        [
+          "ParamEnergyLossSigmaMinus",
+          "<f4"
+        ],
+        [
+          "MeasEnergyLoss",
+          "<f4"
+        ],
+        [
+          "MeasEnergyLossSigma",
+          "<f4"
+        ],
+        [
+          "CaloMuonScore",
+          "<f4"
+        ],
+        [
+          "ptfrac",
+          "<f4"
+        ],
+        [
+          "ptrel",
+          "<f4"
+        ],
+        [
+          "dr",
+          "<f4"
+        ],
+        [
+          "qOverPratio",
+          "<f4"
+        ],
+        [
+          "numberOfInnermostPixelLayerHits",
+          "|u1"
+        ],
+        [
+          "numberOfInnermostPixelLayerSplitHits",
+          "|u1"
+        ],
+        [
+          "numberOfInnermostPixelLayerSharedHits",
+          "|u1"
+        ],
+        [
+          "numberOfInnermostPixelLayerOutliers",
+          "|u1"
+        ],
+        [
+          "numberOfNextToInnermostPixelLayerHits",
+          "|u1"
+        ],
+        [
+          "numberOfNextToInnermostPixelLayerOutliers",
+          "|u1"
+        ],
+        [
+          "numberOfPixelHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelSplitHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelSharedHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelSpoiltHits",
+          "|u1"
+        ],
+        [
+          "numberOfPixelHoles",
+          "|u1"
+        ],
+        [
+          "numberOfSCTHits",
+          "|u1"
+        ],
+        [
+          "numberOfSCTSharedHits",
+          "|u1"
+        ],
+        [
+          "numberOfSCTHoles",
+          "|u1"
+        ],
+        [
+          "expectInnermostPixelLayerHit",
+          "|u1"
+        ],
+        [
+          "expectNextToInnermostPixelLayerHit",
+          "|u1"
+        ],
+        [
+          "eProbabilityHT",
+          "<f4"
+        ],
+        [
+          "qOverP",
+          "<f4"
+        ],
+        [
+          "lifetimeSignedD0",
+          "<f2"
+        ],
+        [
+          "lifetimeSignedZ0SinTheta",
+          "<f2"
+        ],
+        [
+          "lifetimeSignedD0Significance",
+          "<f2"
+        ],
+        [
+          "lifetimeSignedZ0SinThetaSignificance",
+          "<f2"
+        ],
+        [
+          "valid",
+          "|b1"
+        ]
+      ],
+      "fillvalue": {
+        "quality": 0,
+        "pt": null,
+        "eta": null,
+        "phi": null,
+        "momentumBalanceSignificance": null,
+        "scatteringNeighbourSignificance": null,
+        "segmentDeltaEta": null,
+        "segmentDeltaPhi": null,
+        "ParamEnergyLoss": null,
+        "ParamEnergyLossSigmaPlus": null,
+        "ParamEnergyLossSigmaMinus": null,
+        "MeasEnergyLoss": null,
+        "MeasEnergyLossSigma": null,
+        "CaloMuonScore": null,
+        "ptfrac": null,
+        "ptrel": null,
+        "dr": null,
+        "qOverPratio": null,
+        "numberOfInnermostPixelLayerHits": 0,
+        "numberOfInnermostPixelLayerSplitHits": 0,
+        "numberOfInnermostPixelLayerSharedHits": 0,
+        "numberOfInnermostPixelLayerOutliers": 0,
+        "numberOfNextToInnermostPixelLayerHits": 0,
+        "numberOfNextToInnermostPixelLayerOutliers": 0,
+        "numberOfPixelHits": 0,
+        "numberOfPixelSplitHits": 0,
+        "numberOfPixelSharedHits": 0,
+        "numberOfPixelSpoiltHits": 0,
+        "numberOfPixelHoles": 0,
+        "numberOfSCTHits": 0,
+        "numberOfSCTSharedHits": 0,
+        "numberOfSCTHoles": 0,
+        "expectInnermostPixelLayerHit": 0,
+        "expectNextToInnermostPixelLayerHit": 0,
+        "eProbabilityHT": null,
+        "qOverP": null,
+        "lifetimeSignedD0": null,
+        "lifetimeSignedZ0SinTheta": null,
+        "lifetimeSignedD0Significance": null,
+        "lifetimeSignedZ0SinThetaSignificance": null,
+        "valid": false
+      }
+    }
+  }
+}

@@ -1,0 +1,116 @@
+# FCC-ee higgs_decay variable list for umami-preprocessing.
+#
+# These come from the stage2 flat ntuples (stage2_<decay>_*.root),
+# converted by `fcc-ftag-higgs_decay` into a Salt-native H5 with two groups:
+#   - jets   : jet scalars + 7-class truth (flavour_label / recojet_is*)
+#   - pfcand : the 35 precomputed per-constituent features, 3 kinematics
+#              the converter derives from them (+ valid mask)
+#
+# An FCC-native schema: the pfcand fields are the physics features as-is, NOT
+# remapped
+# onto ATLAS tracks_ghost names.
+
+jets:
+  inputs:
+    - jet_p
+    - jet_e
+    - jet_mass
+    - jet_pt
+    - jet_eta
+    - jet_nconst
+    - jet_npfcand
+  labels:
+    - flavour_label
+    # eventNumber = split key; high-cardinality but in UPP's class_dict ignore
+    # list so it does not blow up normalisation. See split-fcc-higgs_decay.yaml.
+    - eventNumber
+    - n_pfcand
+    # one-hot truth kept around for cross-checks / alternative flavour cuts.
+    - recojet_isU
+    - recojet_isD
+    - recojet_isS
+    - recojet_isC
+    - recojet_isB
+    - recojet_isG
+    - recojet_isTAU
+    # Jet-level truth from the FCCAnalyses ghost association and truth-jet
+    # matching (HEP-FCC/FCCAnalyses#549-554). flavour_label is built from the
+    # first two; HadronGhostInitialTruthLabelPdgId feeds jets_bccharge and
+    # truthJetPt/Energy a pT or energy regression. Purity and completeness are
+    # the truth-jet match quality, used as region cuts in fcc-zh.yaml.
+    - jet_HadronGhostTruthLabelID
+    - jet_HadronGhostExtendedTruthLabelID
+    - jet_HadronGhostTruthLabelPdgId
+    - jet_HadronGhostTruthLabelPt
+    - jet_HadronGhostInitialTruthLabelID
+    - jet_HadronGhostInitialExtendedTruthLabelID
+    - jet_HadronGhostInitialTruthLabelPdgId
+    - jet_GhostBHadronsFinalCount
+    - jet_GhostCHadronsFinalCount
+    - jet_PartonTruthLabelID
+    - jet_PartonTruthLabelPt
+    - jet_PartonTruthLabelDR
+    - jet_truthJetPt
+    - jet_truthJetEnergy
+    - jet_truthJetDR
+    - jet_truthJetPurity
+    - jet_truthJetCompleteness
+
+pfcand:
+  inputs:
+    - pfcand_erel_log
+    - pfcand_thetarel
+    - pfcand_phirel
+    - pfcand_dptdpt
+    - pfcand_detadeta
+    - pfcand_dphidphi
+    - pfcand_dxydxy
+    - pfcand_dzdz
+    - pfcand_dxydz
+    - pfcand_dphidxy
+    - pfcand_dlambdadz
+    - pfcand_dxyc
+    - pfcand_dxyctgtheta
+    - pfcand_phic
+    - pfcand_phidz
+    - pfcand_phictgtheta
+    - pfcand_cdz
+    - pfcand_cctgtheta
+    - pfcand_mtof
+    - pfcand_dndx
+    - pfcand_charge
+    - pfcand_isMu
+    - pfcand_isEl
+    - pfcand_isChargedHad
+    - pfcand_isGamma
+    - pfcand_isNeutralHad
+    - pfcand_dxy
+    - pfcand_dz
+    - pfcand_btagSip2dVal
+    - pfcand_btagSip2dSig
+    - pfcand_btagSip3dVal
+    - pfcand_btagSip3dSig
+    - pfcand_btagJetDistVal
+    - pfcand_btagJetDistSig
+    - pfcand_type
+    # Kinematics for salt's pairwise edge features (dR/kt/z), from the
+    # converter (fcc_higgs_decay.PFCAND_KINEMATICS): the energy (copied; it is
+    # jet_e * 10**erel_log, nothing new) and jet-relative CARTESIAN deta/dphi
+    # derived from theta/phi. thetarel/phirel cannot serve there -- they are
+    # polar coordinates about the jet axis. The energy fills salt's "pt" slot
+    # on purpose: a momentum magnitude next to the energy would be the Delphes
+    # truth mass, i.e. hadron ID. Never add pt/p here.
+    - pfcand_e
+    - pfcand_deta
+    - pfcand_dphi
+  labels:
+    # GN3 per-constituent truth targets from the FCCAnalyses JetTruthLabelHelper
+    # (HEP-FCC/FCCAnalyses#549-554). The ATLAS-style names are load-bearing:
+    # salt's VertexingTask derives pair weights via
+    # label.replace("VertexIndex", "OriginLabel") -- needs exactly these.
+    - pfcand_truthOriginLabel
+    - pfcand_truthVertexIndex
+    - pfcand_truthTypeLabel
+    # carried for reference, no head reads them yet.
+    - pfcand_truthSourceLabel
+    - pfcand_truthPdgId

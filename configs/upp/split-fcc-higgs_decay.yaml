@@ -1,0 +1,13 @@
+# Train/val/test split 90/5/5 on the converter-stamped eventNumber.
+#
+# higgs_decay ntuples carry no real event id, so eventNumber is a per-jet running
+# counter (contiguous, globally unique across all input files). It is named
+# eventNumber both to define the split AND so UPP's class_dict ignores it. For
+# these samples truth is one flavour per file, so there is no meaningful
+# per-event jet pairing to leak across the split.
+train:
+  - [eventNumber, "%20<=", 17]
+val:
+  - [eventNumber, "%20==", 18]
+test:
+  - [eventNumber, "%20==", 19]

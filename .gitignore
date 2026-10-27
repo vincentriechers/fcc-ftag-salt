@@ -1,0 +1,50 @@
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+
+# Large physics artifacts live on BeegFS/EOS, not in git.
+*.root
+*.h5
+*.hdf5
+*.sif
+*.simg
+outputs/
+logs/
+plots/
+scratch/
+
+# Local notes and credentials.
+.env
+*.token
+
+# External cloned tools and bundled binaries (slurm submit scripts, hdf5plugin).
+external/
+
+# Salt-launch artifacts.
+slurm-*.out
+
+# Model checkpoints, numpy dumps, OS cruft.
+*.ckpt
+*.npy
+*.npz
+*.bak
+.DS_Store
+.ipynb_checkpoints/
+
+# Editors / IDE.
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Note: uv creates .venv/ (ignored above); uv.lock IS committed for reproducibility.
+
+# Result plots (kept on disk, not in git).
+results_plots/
